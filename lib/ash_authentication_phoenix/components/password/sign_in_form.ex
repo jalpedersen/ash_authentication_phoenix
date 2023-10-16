@@ -4,7 +4,8 @@ defmodule AshAuthentication.Phoenix.Components.Password.SignInForm do
     label_class: "CSS class for the `h2` element.",
     form_class: "CSS class for the `form` element.",
     slot_class: "CSS class for the `div` surrounding the slot.",
-    disable_button_text: "Text for the submit button when the request is happening."
+    disable_button_text: "Text for the submit button when the request is happening.",
+    submit_text: "Submit text"
 
   @moduledoc """
   Generates a default sign in form.
@@ -117,6 +118,7 @@ defmodule AshAuthentication.Phoenix.Components.Password.SignInForm do
           strategy={@strategy}
           form={form}
           action={:sign_in}
+          label={override_for(@overrides, :submit_text)}
           disable_text={override_for(@overrides, :disable_button_text)}
           overrides={@overrides}
         />

@@ -31,6 +31,7 @@ defmodule AshAuthentication.Phoenix.Overrides.Default do
     set :form_class, nil
     set :spacer_class, "py-1"
     set :disable_button_text, "Changing password ..."
+    set :submit_text, "Reset password"
   end
 
   override Components.SignIn do
@@ -78,6 +79,7 @@ defmodule AshAuthentication.Phoenix.Overrides.Default do
         "If this user exists in our database you will contacted with a sign-in link shortly."
 
     set :disable_button_text, "Requesting ..."
+    set :submit_text, "Request magic link"
   end
 
   override Components.Password do
@@ -97,6 +99,7 @@ defmodule AshAuthentication.Phoenix.Overrides.Default do
     set :form_class, nil
     set :slot_class, "my-4"
     set :disable_button_text, "Signing in ..."
+    set :submit_text, "Sign in"
   end
 
   override Components.Password.RegisterForm do
@@ -105,6 +108,7 @@ defmodule AshAuthentication.Phoenix.Overrides.Default do
     set :form_class, nil
     set :slot_class, "my-4"
     set :disable_button_text, "Registering ..."
+    set :submit_text, "Register"
   end
 
   override Components.Password.ResetForm do
@@ -117,6 +121,7 @@ defmodule AshAuthentication.Phoenix.Overrides.Default do
         "If this user exists in our system, you will be contacted with reset instructions shortly."
 
     set :disable_button_text, "Requesting ..."
+    set :submit_text, "Request password reset"
   end
 
   override Components.Password.Input do
@@ -145,6 +150,7 @@ defmodule AshAuthentication.Phoenix.Overrides.Default do
     set :error_ul, "text-red-400 font-light my-3 italic text-sm"
     set :error_li, nil
     set :input_debounce, 350
+    set :field_labels, %{email: "Email", password: "Password", password_confirmation: "Password confirmation"}
   end
 
   override Components.OAuth2 do

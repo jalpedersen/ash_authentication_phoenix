@@ -8,7 +8,8 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
     submit_class: "CSS class for the form submit `input` element.",
     error_ul: "CSS class for the `ul` element on error lists.",
     error_li: "CSS class for the `li` elements on error lists.",
-    input_debounce: "Number of milliseconds to debounce input by (or `nil` to disable)."
+    input_debounce: "Number of milliseconds to debounce input by (or `nil` to disable).",
+    field_labels: "Overrides for field names. Default to humanize(name) if missing"
 
   @moduledoc """
   Function components for dealing with form input during password
@@ -83,7 +84,7 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
 
     ~H"""
     <div class={override_for(@overrides, :field_class)}>
-      <%= label(@form, @identity_field, class: override_for(@overrides, :label_class)) %>
+      <%= label(@form, @identity_field, field_label(@overrides, @identity_field), class: override_for(@overrides, :label_class)) %>
       <%= text_input(@form, @identity_field,
         type: to_string(@input_type),
         class: @input_class,
@@ -133,7 +134,7 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
 
     ~H"""
     <div class={override_for(@overrides, :field_class)}>
-      <%= label(@form, @password_field, class: override_for(@overrides, :label_class)) %>
+      <%= label(@form, @password_field, field_label(@overrides, @password_field), class: override_for(@overrides, :label_class)) %>
       <%= password_input(@form, @password_field,
         class: @input_class,
         value: input_value(@form, @password_field),
@@ -154,7 +155,7 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
     * `strategy` - The configuration map as per
       `AshAuthentication.authenticated_resources/1`.  Required.
     * `form` - An `AshPhoenix.Form`.  Required.
-    * `overrides` - A list of override modules.
+    * `overrides` - A list of override modules.input
   """
   @spec password_confirmation_field(%{
           required(:socket) => Socket.t(),
@@ -182,7 +183,7 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
 
     ~H"""
     <div class={override_for(@overrides, :field_class)}>
-      <%= label(@form, @password_confirmation_field, class: override_for(@overrides, :label_class)) %>
+      <%= label(@form, @password_confirmation_field, field_label(@overrides, @password_confirmation_field), class: override_for(@overrides, :label_class)) %>
       <%= password_input(@form, @password_confirmation_field,
         class: @input_class,
         value: input_value(@form, @password_confirmation_field),
@@ -192,6 +193,14 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
     </div>
     """
   end
+
+  defp field_label(overrides, name) do
+    case override_for(overrides, :field_labels) do
+      %{^name => label} -> label
+      _ -> humanize(name)
+    end
+  end
+
 
   @doc """
   Generate an form submit button.
@@ -278,9 +287,14 @@ defmodule AshAuthentication.Phoenix.Components.Password.Input do
       assigns
       |> assign_new(:overrides, fn -> [AshAuthentication.Phoenix.Overrides.Default] end)
       |> assign_new(:errors, fn ->
-        assigns.form
-        |> Form.errors()
-        |> Keyword.get_values(assigns.field)
+        case Application.get_env(:ash, :translator_module) do
+          nil ->
+            assigns.form
+            |> Form.errors()
+            |> Keyword.get_values(assigns.field)
+          mod ->
+            apply(mod, :translate_errors, [Form.errors(assigns.form, format: :raw), assigns.field])
+        end
       end)
       |> assign_new(:field_label, fn -> humanize(assigns.field) end)
 

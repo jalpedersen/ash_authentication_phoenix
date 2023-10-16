@@ -4,7 +4,8 @@ defmodule AshAuthentication.Phoenix.Components.Reset.Form do
     label_class: "CSS class for the `h2` element.",
     form_class: "CSS class for the `form` element.",
     spacer_class: "CSS classes for space between the password input and submit elements.",
-    disable_button_text: "Text for the submit button when the request is happening."
+    disable_button_text: "Text for the submit button when the request is happening.",
+    submit_text: "Submit text"
 
   @moduledoc """
   Generates a default password reset form.
@@ -127,8 +128,8 @@ defmodule AshAuthentication.Phoenix.Components.Reset.Form do
           strategy={@strategy}
           form={form}
           action={:reset}
+          label={override_for(@overrides, :submit_text)}
           disable_text={override_for(@overrides, :disable_button_text)}
-          label={humanize(@resettable.password_reset_action_name)}
           overrides={@overrides}
         />
       </.form>

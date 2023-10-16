@@ -5,7 +5,8 @@ defmodule AshAuthentication.Phoenix.Components.MagicLink do
     form_class: "CSS class for the `form` element.",
     request_flash_text:
       "Text for the flash message when a request is received.  Set to `nil` to disable.",
-    disable_button_text: "Text for the submit button when the request is happening."
+    disable_button_text: "Text for the submit button when the request is happening.",
+    submit_text: "Submit button text"
 
   @moduledoc """
   Generates a sign-in for for a resource using the "Magic link" strategy.
@@ -92,6 +93,7 @@ defmodule AshAuthentication.Phoenix.Components.MagicLink do
           strategy={@strategy}
           form={form}
           action={@strategy.request_action_name}
+          label={override_for(@overrides, :submit_text)}
           disable_text={override_for(@overrides, :disable_button_text)}
           overrides={@overrides}
         />
