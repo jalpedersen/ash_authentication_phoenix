@@ -2,7 +2,7 @@ defmodule AshAuthentication.Phoenix.MixProject do
   @moduledoc false
   use Mix.Project
 
-  @version "1.8.7"
+  @version "1.9.0"
 
   def project do
     [
@@ -145,7 +145,9 @@ defmodule AshAuthentication.Phoenix.MixProject do
       {:faker, "~> 0.17", only: [:dev, :test]},
       {:git_ops, "~> 2.4", only: [:dev, :test], runtime: false},
       {:mimic, "~> 1.7", only: [:dev, :test]},
-      {:plug_cowboy, "~> 2.5", only: [:dev, :test]}
+      {:plug_cowboy, "~> 2.5", only: [:dev, :test]},
+      # Syntax highlighting for HTML in ex_doc
+      {:makeup_html, ">= 0.0.0", only: :dev, runtime: false}
     ]
   end
 
