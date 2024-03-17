@@ -5,6 +5,24 @@ See [Conventional Commits](Https://conventionalcommits.org) for commit guideline
 
 <!-- changelog -->
 
+## [v1.9.4](https://github.com/team-alembic/ash_authentication_phoenix/compare/v1.9.3...v1.9.4) (2024-03-06)
+
+
+
+
+### Bug Fixes:
+
+* Fix typos in override class names
+
+## [v1.9.3](https://github.com/team-alembic/ash_authentication_phoenix/compare/v1.9.2...v1.9.3) (2024-03-05)
+
+
+
+
+### Bug Fixes:
+
+* Fix typos in override class names
+
 ## [v1.9.2](https://github.com/team-alembic/ash_authentication_phoenix/compare/v1.9.1...v1.9.2) (2024-02-02)
 
 
